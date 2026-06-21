@@ -1,0 +1,7 @@
+.env
+.raggie.data
+uploads/
+dataset/
+__pycache__/
+*.pyc
+ui_design/
