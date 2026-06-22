@@ -86,6 +86,10 @@ def calculate_orientation(skeleton: np.ndarray) -> Tuple[float, str]:
     # Get eigenvectors and eigenvalues
     eigenvalues, eigenvectors = np.linalg.eig(cov)
     
+    # Ensure real values (eigenvectors can be complex for certain matrices)
+    eigenvalues = np.real(eigenvalues)
+    eigenvectors = np.real(eigenvectors)
+    
     # The principal eigenvector (largest eigenvalue) gives the dominant direction
     principal_idx = np.argmax(eigenvalues)
     principal_vec = eigenvectors[:, principal_idx]
