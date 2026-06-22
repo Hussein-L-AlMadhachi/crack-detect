@@ -74,7 +74,7 @@ class UploadResponse(BaseModel):
     
     model_config = {"from_attributes": True}
 
-@app.post("/register", response_model=UserResponse)
+@app.post("/api/register", response_model=UserResponse)
 def register(user: UserCreate, db: Session = Depends(get_db)):
     # Check if user already exists
     existing_user = db.query(User).filter(User.username == user.username).first()
@@ -102,7 +102,7 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return new_user
 
-@app.post("/token", response_model=Token)
+@app.post("/api/token", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == form_data.username).first()
     if not user or not verify_password(form_data.password, user.hashed_password):
@@ -117,7 +117,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-@app.get("/users/me", response_model=UserResponse)
+@app.get("/api/users/me", response_model=UserResponse)
 def read_users_me(current_user: User = Depends(get_current_user)):
     user_dict = {
         "id": current_user.id,
@@ -128,7 +128,7 @@ def read_users_me(current_user: User = Depends(get_current_user)):
     }
     return UserResponse(**user_dict)
 
-@app.post("/upload", response_model=UploadResponse)
+@app.post("/api/upload", response_model=UploadResponse)
 async def upload_crack_image(
     file: UploadFile = File(...),
     pixels_per_mm: float = Form(10.0),
@@ -187,7 +187,7 @@ async def upload_crack_image(
     
     return UploadResponse(**upload_dict)
 
-@app.get("/history", response_model=List[UploadResponse])
+@app.get("/api/history", response_model=List[UploadResponse])
 def get_upload_history(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -212,7 +212,7 @@ def get_upload_history(
     
     return result
 
-@app.get("/history/{upload_id}", response_model=UploadResponse)
+@app.get("/api/history/{upload_id}", response_model=UploadResponse)
 def get_upload_detail(
     upload_id: int,
     current_user: User = Depends(get_current_user),

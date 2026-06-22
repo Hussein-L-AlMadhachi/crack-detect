@@ -25,7 +25,7 @@ class Api {
   }
 
   async register(username, email, password, userType) {
-    const response = await fetch(`${API_BASE_URL}/register`, {
+    const response = await fetch(`${API_BASE_URL}/api/register`, {
       method: 'POST',
       headers: this.getHeaders(),
       body: JSON.stringify({
@@ -43,7 +43,7 @@ class Api {
     formData.append('username', username);
     formData.append('password', password);
 
-    const response = await fetch(`${API_BASE_URL}/token`, {
+    const response = await fetch(`${API_BASE_URL}/api/token`, {
       method: 'POST',
       body: formData,
     });
@@ -59,7 +59,7 @@ class Api {
   }
 
   async getCurrentUser() {
-    const response = await fetch(`${API_BASE_URL}/users/me`, {
+    const response = await fetch(`${API_BASE_URL}/api/users/me`, {
       method: 'GET',
       headers: this.getHeaders(),
     });
@@ -76,7 +76,7 @@ class Api {
       headers['Authorization'] = `Bearer ${this.token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/upload`, {
+    const response = await fetch(`${API_BASE_URL}/api/upload`, {
       method: 'POST',
       headers,
       body: formData,
@@ -85,7 +85,7 @@ class Api {
   }
 
   async getHistory() {
-    const response = await fetch(`${API_BASE_URL}/history`, {
+    const response = await fetch(`${API_BASE_URL}/api/history`, {
       method: 'GET',
       headers: this.getHeaders(),
     });
@@ -93,7 +93,7 @@ class Api {
   }
 
   async getUploadDetail(uploadId) {
-    const response = await fetch(`${API_BASE_URL}/history/${uploadId}`, {
+    const response = await fetch(`${API_BASE_URL}/api/history/${uploadId}`, {
       method: 'GET',
       headers: this.getHeaders(),
     });
