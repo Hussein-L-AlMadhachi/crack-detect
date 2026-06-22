@@ -12,16 +12,19 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      <div className="min-h-screen bg-background-950 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
       </div>
     )
   }
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-100 flex flex-col">
-        <div className="flex-1 flex flex-col max-w-md mx-auto w-full bg-white shadow-2xl overflow-hidden">
+      <div className="min-h-screen bg-background-950 flex flex-col" style={{
+        backgroundImage: 'radial-gradient(circle, #1d2949 1px, transparent 1px)',
+        backgroundSize: '20px 20px'
+      }}>
+        <div className="flex-1 flex flex-col max-w-md mx-auto w-full bg-background-900 shadow-2xl overflow-hidden">
           <Login />
         </div>
       </div>
@@ -29,13 +32,16 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      <div className="flex-1 flex flex-col max-w-md mx-auto w-full bg-white shadow-2xl overflow-hidden">
+    <div className="min-h-screen bg-background-950 flex flex-col" style={{
+      backgroundImage: 'radial-gradient(circle, #1d2949 1px, transparent 1px)',
+      backgroundSize: '20px 20px'
+    }}>
+      <div className="flex-1 flex flex-col max-w-md mx-auto w-full bg-background-900 shadow-2xl overflow-hidden pb-20">
         {activeTab === 'camera' && <Camera />}
         {activeTab === 'history' && <History />}
         {activeTab === 'profile' && <Profile />}
-        <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
+      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
     </div>
   )
 }

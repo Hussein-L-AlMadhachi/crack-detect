@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException, status, UploadFile, File, Form
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from datetime import timedelta
 from typing import List
@@ -30,6 +31,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount static files for uploaded images
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
 # Create uploads directory if it doesn't exist
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
@@ -48,6 +52,7 @@ class UserResponse(BaseModel):
     username: str
     email: str
     user_type: str
+    created_at: str
     
     model_config = {"from_attributes": True}
 
@@ -114,7 +119,14 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 
 @app.get("/users/me", response_model=UserResponse)
 def read_users_me(current_user: User = Depends(get_current_user)):
-    return current_user
+    user_dict = {
+        "id": current_user.id,
+        "username": current_user.username,
+        "email": current_user.email,
+        "user_type": current_user.user_type,
+        "created_at": current_user.created_at.isoformat() if current_user.created_at else None
+    }
+    return UserResponse(**user_dict)
 
 @app.post("/upload", response_model=UploadResponse)
 async def upload_crack_image(
@@ -147,7 +159,7 @@ async def upload_crack_image(
     # Save to database
     upload = Upload(
         user_id=current_user.id,
-        image_path=file_path,
+        image_path=f"/uploads/{unique_filename}",
         length_mm=measurements["length_mm"],
         avg_width_mm=measurements["avg_width_mm"],
         max_width_mm=measurements["max_width_mm"],

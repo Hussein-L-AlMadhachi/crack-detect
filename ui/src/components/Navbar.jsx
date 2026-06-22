@@ -1,10 +1,10 @@
 const Navbar = ({ activeTab, setActiveTab }) => {
   return (
-    <div className="bg-white border-t border-gray-200 px-6 py-4 flex justify-around items-center">
+    <div className="fixed bottom-0 left-0 right-0 bg-secondary-900 border-t border-background-800 px-6 py-4 flex justify-around items-center z-50">
       <button
         onClick={() => setActiveTab('camera')}
         className={`flex flex-col items-center gap-1 transition-colors ${
-          activeTab === 'camera' ? 'text-blue-500' : 'text-gray-400'
+          activeTab === 'camera' ? 'text-primary-500' : 'text-text-300'
         }`}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -17,7 +17,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
       <button
         onClick={() => setActiveTab('history')}
         className={`flex flex-col items-center gap-1 transition-colors ${
-          activeTab === 'history' ? 'text-blue-500' : 'text-gray-400'
+          activeTab === 'history' ? 'text-primary-500' : 'text-text-300'
         }`}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,7 +29,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
       <button
         onClick={() => setActiveTab('profile')}
         className={`flex flex-col items-center gap-1 transition-colors ${
-          activeTab === 'profile' ? 'text-blue-500' : 'text-gray-400'
+          activeTab === 'profile' ? 'text-primary-500' : 'text-text-300'
         }`}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
