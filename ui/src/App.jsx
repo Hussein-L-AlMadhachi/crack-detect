@@ -24,7 +24,7 @@ function App() {
         backgroundImage: 'radial-gradient(circle, #1d2949 1px, transparent 1px)',
         backgroundSize: '20px 20px'
       }}>
-        <div className="flex-1 flex flex-col max-w-md mx-auto w-full bg-background-900 shadow-2xl overflow-hidden">
+        <div className="flex-1 flex flex-col max-w-2xl mx-auto w-full bg-background-900 shadow-2xl overflow-hidden">
           <Login />
         </div>
       </div>
@@ -36,7 +36,7 @@ function App() {
       backgroundImage: 'radial-gradient(circle, #1d2949 1px, transparent 1px)',
       backgroundSize: '20px 20px'
     }}>
-      <div className="flex-1 flex flex-col max-w-md mx-auto w-full bg-background-900 shadow-2xl overflow-hidden pb-20">
+      <div className="flex-1 flex flex-col max-w-2xl mx-auto w-full bg-background-900 shadow-2xl overflow-hidden pb-20">
         {activeTab === 'camera' && <Camera />}
         {activeTab === 'history' && <History />}
         {activeTab === 'profile' && <Profile />}
